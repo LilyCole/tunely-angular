@@ -32,9 +32,19 @@
         means that the controller's alias within the HTML will be
         albumsIndexCtrl-->
     <div class="container" ng-controller="AlbumsIndexController as albumsIndexCtrl">
-      <input type="text" class="form-control" placeholder="New album name" ng-model="albumsIndexCtrl.newAlbum.name">
-      <input type="text" class="form-control" placeholder="New album artist" ng-model="albumsIndexCtrl.newAlbum.artistName">
-      <p><b>albumsIndexCtrl.newAlbum:</b> {{albumsIndexCtrl.newAlbum}}</p>
+      <div class="col-md-6 col-md-offset-3 sub-container panel">
+        <form ng-submit="albumsIndexCtrl.createAlbum()">
+          <input type="text" class="form-control" placeholder="New album name" ng-model="albumsIndexCtrl.newAlbum.name">
+          <input type="text" class="form-control" placeholder="New album artist" ng-model="albumsIndexCtrl.newAlbum.artistName">
+          <input type="text" class="form-control" placeholder="New album release date" ng-model="albumsIndexCtrl.newAlbum.releaseDate">
+          <input type="text" class="form-control" placeholder="New album genres" ng-model="albumsIndexCtrl.newAlbum.genres">
+          <button type="submit">SUBMIT</button>
+          <!-- 
+          <p><b>New Album:</b> {{albumsIndexCtrl.newAlbum.name}} | <b>Artist:</b> {{albumsIndexCtrl.newAlbum.artistName}}</p>
+          <p><b>Release Date:</b> {{albumsIndexCtrl.newAlbum.releaseDate}} | <b>Genres:</b> {{albumsIndexCtrl.newAlbum.genres}}</p> -->
+        </form>
+      </div>
+
       <input type="text" class="form-control" ng-model="searchText" placeholder="Search Albums">
       <div ng-repeat="album in albumsIndexCtrl.albums | orderBy: 'name' | filter: searchText" class="row">
 
@@ -59,6 +69,17 @@
                       <h4 class="inline-header">Artist Name:</h4>
                       <span>{{album.artistName}}</span>
                     </li>
+
+                     <li class="list-group-item">
+                      <h4 class="inline-header">Release Date:</h4>
+                      <span>{{album.releaseDate}}</span>
+                    </li>
+                    
+                    <li class="list-group-item">
+                      <h4 class="inline-header">Genres</h4>
+                      |<span ng-repeat='genre in album.genres | orderBy:genre'> {{genre}} |</span>
+                    </li>
+
                   </ul>
                 </div>
               </div>
