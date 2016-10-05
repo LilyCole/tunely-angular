@@ -16,11 +16,6 @@ function AlbumsIndexController ($http) {
   var vm = this;
   vm.newAlbum = {};
 
-  // vm.newAlbum = {
-  //     name: 'Viva Hate',
-  //     artistName: 'Morrissey'
-  // };
-
   vm.albums = [];
   $http
     .get('/api/albums')
@@ -29,14 +24,8 @@ function AlbumsIndexController ($http) {
     });
 
   vm.createAlbum = function () {
-    var formData = {
-      name: vm.newAlbum.name,
-      artistName: vm.newAlbum.artistName,
-      releaseDate: vm.newAlbum.releaseDate,
-      genres: vm.newAlbum.genres
-    }
     $http
-      .post('/api/albums',formData)
+      .post('/api/albums',vm.newAlbum)
       .then(function(response) {
         vm.albums.push(response.data);
       });
