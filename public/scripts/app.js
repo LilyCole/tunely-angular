@@ -31,4 +31,37 @@ function AlbumsIndexController ($http) {
       });
   }
 
+  vm.deleteAlbum = function(album) {
+    $http
+      .delete('/api/albums/' + album._id)
+      .then(function(response) {
+        // pos = vm.albums.map(function(arrayAlbum) { return arrayAlbum._id}).indexOf(album._id);
+        // vm.albums.splice(pos, 1);
+        var index = vm.albums.indexOf(album);
+        vm.albums.splice(index, 1);
+      });
+  }
+
+  vm.editAlbum = function(album) {
+    console.log("genres:",album.genres);
+    var genres = album.genres.toString().split(',').map(function(item) { return item.trim(); } );
+    var formData = {
+      name: album.name,
+      artistName: album.artistName,
+      releaseDate: album.releaseDate,
+      genres: genres
+    }
+    console.log("formData:",formData)
+    // $http
+    //   .put('/api/albums/' + album._id,formData)
+    //   .then(function(response.data) {
+    //     console.log("response.data",response.data);
+    //   });
+    $http({
+      method: 'PUT',
+      url: '/api/albums/' + album._id,
+      data: formData
+      })
+  }
+
 }

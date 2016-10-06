@@ -38,7 +38,7 @@
           <input type="text" class="form-control" placeholder="New album artist" ng-model="albumsIndexCtrl.newAlbum.artistName">
           <input type="text" class="form-control" placeholder="New album release date" ng-model="albumsIndexCtrl.newAlbum.releaseDate">
           <input type="text" class="form-control" placeholder="New album genres" ng-model="albumsIndexCtrl.newAlbum.genres">
-          <button type="submit">SUBMIT</button>
+          <button class="btn" type="submit">SUBMIT</button>
           <!-- 
           <p><b>New Album:</b> {{albumsIndexCtrl.newAlbum.name}} | <b>Artist:</b> {{albumsIndexCtrl.newAlbum.artistName}}</p>
           <p><b>Release Date:</b> {{albumsIndexCtrl.newAlbum.releaseDate}} | <b>Genres:</b> {{albumsIndexCtrl.newAlbum.genres}}</p> -->
@@ -55,30 +55,46 @@
             <!-- begin album internal row -->
               <div class="row">
                 <div class="col-md-3 col-xs-12 thumbnail">
+                  
                   <img src="images/800x800.png" alt="album image">
+
                 </div>
+
 
                 <div class="col-md-9 col-xs-12">
                   <ul class="list-group form-inline">
                     <li class="list-group-item">
                       <h4 class="inline-header">Album Name:</h4>
-                      <span>{{album.name}}</span>
+                      <span ng-hide="editing"> {{album.name}}</span>
+                      <input ng-show="editing" ng-model="album.name" type="text" class="form-control input-md">
                     </li>
 
                     <li class="list-group-item">
                       <h4 class="inline-header">Artist Name:</h4>
-                      <span>{{album.artistName}}</span>
+                      <span ng-hide="editing">{{album.artistName}}</span>
+                      <input ng-show="editing" ng-model="album.artistName" type="text" class="form-control input-md">
                     </li>
 
                      <li class="list-group-item">
                       <h4 class="inline-header">Release Date:</h4>
-                      <span>{{album.releaseDate}}</span>
+                      <span ng-hide="editing">{{album.releaseDate}}</span>
+                      <input ng-show="editing" ng-model="album.releaseDate" type="text" class="form-control input-md">
                     </li>
                     
                     <li class="list-group-item">
                       <h4 class="inline-header">Genres</h4>
-                      |<span ng-repeat='genre in album.genres | orderBy:genre'> {{genre}} |</span>
+                      <span ng-hide="editing">|</span><span ng-hide="editing" ng-repeat='genre in album.genres'> {{genre}} |</span>
+                      <input ng-show="editing" ng-model="album.genres" type="text" class="form-control input-md">
                     </li>
+
+                    <li class="list-group-item">
+                      <button class='btn btn-danger' ng-click='albumsIndexCtrl.deleteAlbum(album)'>DELETE</button>
+                      <button class='btn btn-info' ng-hide="editing" ng-click="editing = true">EDIT</button>
+                      <button class='btn btn-success' ng-show="editing" ng-click="albumsIndexCtrl.editAlbum(album); editing = false">SAVE</button>
+                    </li>
+
+                  
+
 
                   </ul>
                 </div>
