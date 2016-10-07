@@ -23,3 +23,7 @@
   text-align: center;
 }
 
+.thumbnail img {
+  height: 10px;
+}
+
